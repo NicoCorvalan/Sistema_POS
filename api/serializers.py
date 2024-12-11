@@ -17,14 +17,16 @@ class IngresoSerializer(serializers.ModelSerializer):
         fields = ['id', 'fecha', 'total']
 
 class DetalleIngresoSerializer(serializers.ModelSerializer):
-    articulo = ArticuloSerializer()
+    ingreso = serializers.PrimaryKeyRelatedField(queryset=Ingreso.objects.all())  # Solo ID de ingreso
+    articulo = serializers.PrimaryKeyRelatedField(queryset=Articulo.objects.all())  # Solo ID de articulo
 
     class Meta:
         model = DetalleIngreso
         fields = ['id', 'ingreso', 'articulo', 'cantidad', 'precio_unitario']
 
 class DetalleVentaSerializer(serializers.ModelSerializer):
-    articulo = ArticuloSerializer()
+    venta = serializers.PrimaryKeyRelatedField(queryset=Venta.objects.all())  # Solo ID de venta
+    articulo = serializers.PrimaryKeyRelatedField(queryset=Articulo.objects.all())  # Solo ID de articulo
 
     class Meta:
         model = DetalleVenta
